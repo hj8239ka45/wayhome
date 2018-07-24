@@ -1,0 +1,311 @@
+#include "ASA_Lib.h"
+static char s=0;
+char mod;
+int time_off=0;
+int open=0;
+int a[4]={48,48,48,48};//儲存鬧鐘時間設定
+int b[4]={48,48,48,48};//儲存鬧鈴時間設定
+int change=0;	   //閃爍燈位
+int a_2[4]={48,48,48,48};//儲存鬧鐘時間上一輪設定(回歸使用)
+int b_2[4]={48,48,48,48};//儲存鬧鈴時間上一輪設定(回歸使用)
+int sec=0,sec2=0,msc=0,timer1=48,timer2=48,timer3=48,timer0=48;
+int out=0;
+void on_off(){
+	if(s=='c'){
+		open = (open+1)%2;
+		if(open == 0){
+			time_off=1;
+		}
+		if(time_off == 0){
+			open=0;
+		}
+	}
+}
+void keyincumulator()
+{
+	if(mod=='A'){
+		switch(change){
+			case 1:
+				a[0]=s;
+				break;
+			case 2:
+				a[1]=s;
+				break;
+			case 3:
+				a[2]=s;
+				break;
+			case 4:
+				a[3]=s;
+				break;
+		}
+	}
+	if(mod=='B'){
+		switch(change){
+			case 1:
+				b[0]=s;
+				break;
+			case 2:
+				b[1]=s;
+				break;
+			case 3:
+				b[2]=s;
+				break;
+			case 4:
+				b[3]=s;
+				break;
+		}
+	}
+}
+
+void save(){
+	if(s=='a'){
+		if(mod=='A'){
+			for(int tmp=0;tmp<4;tmp++)
+				a_2[tmp]=a[tmp];
+			timer0=a_2[0];
+			timer1=a_2[1];
+			timer2=a_2[2];
+			timer3=a_2[3];
+			sec=(timer2-48)*10+timer3-48;
+			sec2=(timer0-48)*10+timer1-48;
+			printf("\nsave: %c %c %c %c\n",a_2[0],a_2[1],a_2[2],a_2[3]);
+		}
+		if(mod=='B'){
+			for(int tmp=0;tmp<4;tmp++)
+				b_2[tmp]=b[tmp];
+			printf("\nsave: %c %c %c %c\n",b_2[0],b_2[1],b_2[2],b_2[3]);
+		}	
+		out=1;
+	}
+	if(s=='b'){
+		if(mod=='A'){
+			for(int tmp=0;tmp<4;tmp++)
+				a[tmp]=a_2[tmp];
+			printf("\nreturn: %c %c %c %c\n",a[0],a[1],a[2],a[3]);
+		}
+		if(mod=='B'){
+			for(int tmp=0;tmp<4;tmp++)
+				b[tmp]=b_2[tmp];
+			printf("\nreturn: %c %c %c %c\n",b[0],b[1],b[2],b[3]);
+		}
+		out=1;
+	}
+}
+
+void displayselector(){	//顯示模組
+	//設定時鐘:非閃爍輸入
+	if(mod=='A'){
+		//修改
+		ASA_7S00_set(0,200,0xff,0,0x00);
+		ASA_7S00_put(0,0,1,&a[0]);
+		ASA_7S00_put(0,1,1,&a[1]);
+		ASA_7S00_put(0,2,1,&a[2]);
+		ASA_7S00_put(0,3,1,&a[3]);
+	}
+	//設定鬧鈴:閃爍輸入
+	if(mod=='B'){
+		ASA_7S00_set(0,200,0xff,0,0x0f);
+		ASA_7S00_put(0,0,1,&b[0]);
+		ASA_7S00_put(0,1,1,&b[1]);
+		ASA_7S00_put(0,2,1,&b[2]);
+		ASA_7S00_put(0,3,1,&b[3]);
+	}
+	
+}
+
+
+
+void Alarm(){
+	////鬧鈴關閉狀態：非閃爍方式顯示目前時間值
+		//寫於main()中
+	//鬧鈴開啟
+		//時間未到狀態：非閃爍方式顯示目前時間值
+	if(open==1){
+		if(time_off==1){
+			int tmp=(b[2]-48)*10+b[3]-48;
+			int tmp2=(b[0]-48)*10+b[1]-48;
+			if(tmp/60>0)
+			{
+				if(tmp2>=60)
+				{
+					tmp2=tmp2-(tmp2/60)*60;
+				}
+				int enter=tmp/60;	//進位數字有幾個
+				tmp2=tmp2+enter;
+				timer1=tmp2%10+48;	
+				timer0=tmp2/10+48;
+				tmp=tmp-enter*60;
+				printf("\ntmp=%d tmp2=%d\n",tmp,tmp2);
+			}
+			if(tmp==sec&&tmp2==sec2){
+				time_off=0;
+			}
+		}
+		
+		if(time_off==0){
+			open=0;
+			ASA_7S00_set(0,200,0xff,0,0x0f);
+			int subtract=45;
+			do{
+			ASA_7S00_put(0,0,1,&subtract);
+			ASA_7S00_put(0,1,1,&subtract);
+			ASA_7S00_put(0,2,1,&subtract);
+			ASA_7S00_put(0,3,1,&subtract);
+			ASA_KB00_get(3,100,1,&s);
+			}while(s==0);
+		}
+	}
+	//時間己到狀態：以閃爍方式顯示目前時間
+}
+
+void Alarm_clock(){
+
+	if(open==0){		//鬧鈴關閉狀態：可接受按鍵為鬧鈴開閉切換鍵、進入設定時間鍵、進入設定鬧鈴
+		on_off();
+		time_off=1;
+	}
+	else{
+		if(time_off==1){ //時間未到狀態：可接受按鍵為鬧鈴開閉切換鍵、進入設定時間鍵、進入設定鬧鈴
+			on_off();
+		}
+		if(time_off==0){ //時間己到狀態：可接受按鍵為鬧鈴開閉切換鍵、進入設定時間鍵、進入設定鬧鈴
+			open=0;
+		}
+	}
+	if(s=='d'){			//設定鬧鐘狀態：可接受按鍵為數字鍵，輸入完畢鍵，及輸入放棄鍵
+		mod='A';	//模式A:改變鬧鐘時間設定
+		//設定閃爍第一燈
+	}
+	if(s=='e'){			//設定鬧鈴狀態：可接受按鍵為數字鍵，輸入完畢鍵，及輸入放棄鍵
+		mod='B';		//模式B:改變鬧鈴時間設定
+		//設定閃爍第一燈
+	}
+	if(mod=='A'||mod=='B'){
+		while(1){
+			do{
+				ASA_KB00_get(3,100,1,&s);
+				displayselector();//顯示燈亮
+			}while(s==0);
+				if(s<58&&s>47){	//數字累進
+					change++;
+					keyincumulator();
+					if(change==4)change=0;
+				}
+				if(s=='a'||s=='b'){		//a:完畢鍵 b:放棄鍵
+					change=0;
+					save();		//存入結果or回歸結果
+					mod='0';	//設定儲存結果(提供放棄鍵使用)
+				}
+				if(out==1){
+					out=0;
+					break;
+				}
+			while(s!=0)ASA_KB00_get(3,100,1,&s);
+		}
+	}
+}
+
+void timer2_fun()
+{
+	msc++;
+	if(msc==1000)
+	{
+		msc=0;
+		sec++;
+	}
+}
+
+void calculate()
+{
+	if(sec/60>0)
+	{
+		if(sec2>=60)
+		{
+			sec2=sec2-(sec2/60)*60;
+		}
+		int enter=sec/60;	//進位數字有幾個
+		sec2=sec2+enter;
+		timer1=sec2%10+48;	
+		timer0=sec2/10+48;
+
+		sec=sec-enter*60;
+		
+	}
+
+	timer3 = sec%10 +48;
+	timer2 = sec/10 +48;
+	
+}
+
+int main(void)
+{
+	ASA_M128_set();
+
+	ASA_KB00_set(3,200,0xff,0,1);
+	ASA_KB00_set(3,201,0xff,0,102);
+	ASA_KB00_set(3,202,0xff,0,101);
+	ASA_KB00_set(3,203,0xff,0,100);
+	ASA_KB00_set(3,204,0xff,0,99);
+	ASA_KB00_set(3,205,0xff,0,98);
+	ASA_KB00_set(3,206,0xff,0,51);
+	ASA_KB00_set(3,207,0xff,0,54);
+	ASA_KB00_set(3,208,0xff,0,57);
+	ASA_KB00_set(3,209,0xff,0,97);
+	ASA_KB00_set(3,210,0xff,0,50);
+	ASA_KB00_set(3,211,0xff,0,53);
+	ASA_KB00_set(3,212,0xff,0,56);
+	ASA_KB00_set(3,213,0xff,0,48);
+	ASA_KB00_set(3,214,0xff,0,49);
+	ASA_KB00_set(3,215,0xff,0,52);
+	ASA_KB00_set(3,216,0xff,0,55);
+	printf("Start!---------\n");
+	
+	M128_TIM_set(222,0x07,0,3);	// 除頻值設定 選用除頻64
+	M128_TIM_set(222,0x48,3,1); // 設定計數器方法，使用CTC
+	M128_TIM_set(207,0x80,7,1);	//開啟TIMER2 中斷
+
+	unsigned char ocr2 = 171;
+	M128_TIM_put(10,1,&ocr2);	// 選用OCR
+	// f = fclk / (2N) / (1+OCR)
+	// f = 11059200 / (2*64) / (1+171)
+
+	M128_TIM_isr(2,timer2_fun);
+	// 登記timer2中斷函式
+	sei();
+	//開啟所有中斷功能
+	int last_sec = sec;
+		ASA_7S00_set(0,200,0xff,0,0);
+		ASA_7S00_put(0,0,1,&timer0);
+		ASA_7S00_put(0,1,1,&timer1);
+		ASA_7S00_put(0,2,1,&timer2);
+		ASA_7S00_put(0,3,1,&timer3);
+	while(1)
+	{	do
+		{    
+		 	
+			ASA_KB00_get(3,100,1,&s); 
+			if(last_sec!=sec){
+				last_sec = sec;
+				printf("sec=%d\n",sec);
+				calculate();
+				if(open==0)ASA_7S00_set(0,200,0xff,0,0);
+				if(open==1)ASA_7S00_set(0,200,0xff,0,0x10);
+				ASA_7S00_put(0,0,1,&timer0);
+				ASA_7S00_put(0,1,1,&timer1);
+				ASA_7S00_put(0,2,1,&timer2);
+				ASA_7S00_put(0,3,1,&timer3);
+				Alarm();
+			}
+			if(s!=0)
+			{
+				printf("value=%c",s);
+			   	Alarm_clock();
+			} 
+		}while(s==0);
+		while(s!=0)ASA_KB00_get(3,100,1,&s);
+		printf("\r");
+	}
+
+	return 0;
+
+}
