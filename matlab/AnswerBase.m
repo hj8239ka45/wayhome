@@ -1,6 +1,6 @@
 function x = AnswerBase(tmp)
-for i=123:9876  %�o��for���͵��׮w 
-        unit_1 = rem(i,10);  %�H�U�|���|��Ʃ�|�ӦU��Ƥ��O�s��|���ܼ� 
+for i=123:9876  %這個for產生答案庫 
+        unit_1 = rem(i,10);  %以下四行把四位數拆成四個各位數分別存到四個變數 
         unit_10 = rem(fix(i/10),10);
         unit_100 = rem(fix(i/100),10);
         unit_1000 = rem(fix(i/1000),10);
