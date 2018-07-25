@@ -59,7 +59,7 @@ handles.value = x;
 disp(x);
 set(handles.result_text,'String',0);
 
-%²Ä¤GÃD¥ı¼vÂÃ
+%ç¬¬äºŒé¡Œå…ˆå½±è—
 set(handles.player_text,'Visible','off');
 set(handles.player_edit_1,'Visible','off');
 set(handles.player_edit_2,'Visible','off');
@@ -120,18 +120,18 @@ function computer_output_Callback(hObject, eventdata, handles)
 % hObject    handle to computer_output (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-user_number = str2num(get(handles.computer_edit,'String'))%Åª¨ú¿é¤J­È
+user_number = str2num(get(handles.computer_edit,'String'))%è®€å–è¼¸å…¥å€¼
 times = str2num(get(handles.result_text,'String'));
     times = 1 + times
     %fopeen('a.txt','a');
-    x4 = rem(user_number,10);            %rem(x,y) ¨úx/yªº¾l¼Æ
-    user_number = fix(user_number/10);   %fix(x,y) ¨úx/yªº¾ã¼Æ
+    x4 = rem(user_number,10);            %rem(x,y) å–x/yçš„é¤˜æ•¸
+    user_number = fix(user_number/10);   %fix(x,y) å–x/yçš„æ•´æ•¸
     x3 = rem(user_number,10);
     user_number = fix(user_number/10);
     x2 = rem(user_number,10);
     user_number = fix(user_number/10);
     x1 = rem(user_number,10);
-    n = [x1 x2 x3 x4];                   %±Æ§Ç
+    n = [x1 x2 x3 x4];                   %æ’åº
     a = 0;
     b = 0;
     for i = 1:4
@@ -171,8 +171,8 @@ times = str2num(get(handles.result_text,'String'));
         remain=5040;
         set(handles.text14,'String',0);
         set(handles.text10,'String',remain);
-        tmp=1;  %tmp¥u¬O¤@­Ó®³¨Ó­p¼ÆÅÜ¼Æ 
-        isOver=0;  %§PÂ_µ²§ô»P§_ 
+        tmp=1;  %tmpåªæ˜¯ä¸€å€‹æ‹¿ä¾†è¨ˆæ•¸è®Šæ•¸ 
+        isOver=0;  %åˆ¤æ–·çµæŸèˆ‡å¦ 
         handles.answerBase = AnswerBase(tmp);
         handles.randNum = randi([1 remain],1);
         guidata(hObject,handles)
@@ -260,11 +260,11 @@ function player_output_Callback(hObject, eventdata, handles)
     a = str2num(get(handles.player_edit_1,'String'));
     b = str2num(get(handles.player_edit_2,'String'));
     right=1;
-    %­p¦¸
+    %è¨ˆæ¬¡
     times = str2num(get(handles.text14,'String'));
     times = 1 + times;
     set(handles.text14,'String',times);
-    %­p¦¸end
+    %è¨ˆæ¬¡end
     if a==4&b==0
         isOver=1;
         str1 = 'That is right, computer takes  ';
@@ -272,8 +272,8 @@ function player_output_Callback(hObject, eventdata, handles)
         str3 = ' times.';
         msg5 = strcat(str1,str2,str3);
         msgbox(msg5);
-    elseif remain==1  %¦pªGµª®×®w¥u³Ñ¤@­Óµª®×¡A¦ı¬O³oµª®×ÁÙ¬O¿ùªº¡A´N¬Oª±®a§@¹ú¡I
-        msgbox('Cheater¡I= =+');
+    elseif remain==1  %å¦‚æœç­”æ¡ˆåº«åªå‰©ä¸€å€‹ç­”æ¡ˆï¼Œä½†æ˜¯é€™ç­”æ¡ˆé‚„æ˜¯éŒ¯çš„ï¼Œå°±æ˜¯ç©å®¶ä½œå¼Šï¼
+        msgbox('Cheaterï¼= =+');
         isOver=1;
     end
     
@@ -283,7 +283,7 @@ function player_output_Callback(hObject, eventdata, handles)
      for i=1:4
          refer(i)=handles.answerBase(handles.randNum,i);
      end
-    %¥~³¡¨úremain¡BanswerBase
+    %å¤–éƒ¨å–remainã€answerBase
     [remain  handles.answerBase] = test1(handles.answerBase,remain,refer,a,b);
     set(handles.text10,'String',remain);
     %think() end;
@@ -362,21 +362,21 @@ function rule2_Callback(hObject, eventdata, handles)
 % hObject    handle to rule2 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-    str4='           ¤ß¹q·PÀ³²q¼Æ¦r¹CÀ¸ ver2              ';
+    str4='           å¿ƒé›»æ„Ÿæ‡‰çŒœæ•¸å­—éŠæˆ² ver2              ';
     str5='                                               ';
-    str6='  ¹CÀ¸³W«h¡G                                   ';
-    str7='  1.¨C¦^¦X¹q¸£·|²q¤@­Ó¥|¦ì¤£­«½Æ¼Æ¦r                  ';
-    str8='  2.Aªº¦¸¼Æ¥Nªí¹q¸£²q¹ï¤F´X­Ó¼Æ¦r¥B¦ì¸m¥¿½T     ';
-    str9='  3.Bªº¦¸¼Æ¥Nªí¹q¸£²q¹ï¤F´X­Ó¼Æ¦r¦ı¦ì¸m¤£¹ï     ';
-    str10='  4.§A¥²¶·§i¶D¹q¸£A©MBªº­È                     ';
-    str11='  5.¤C¦^¦X¤º¥²¥i²q¥Xµª®×                       ';
-    str12='  6.Enjoy¡I                                    ';
+    str6='  éŠæˆ²è¦å‰‡ï¼š                                   ';
+    str7='  1.æ¯å›åˆé›»è…¦æœƒçŒœä¸€å€‹å››ä½ä¸é‡è¤‡æ•¸å­—                  ';
+    str8='  2.Açš„æ¬¡æ•¸ä»£è¡¨é›»è…¦çŒœå°äº†å¹¾å€‹æ•¸å­—ä¸”ä½ç½®æ­£ç¢º     ';
+    str9='  3.Bçš„æ¬¡æ•¸ä»£è¡¨é›»è…¦çŒœå°äº†å¹¾å€‹æ•¸å­—ä½†ä½ç½®ä¸å°     ';
+    str10='  4.ä½ å¿…é ˆå‘Šè¨´é›»è…¦Aå’ŒBçš„å€¼                     ';
+    str11='  5.ä¸ƒå›åˆå…§å¿…å¯çŒœå‡ºç­”æ¡ˆ                       ';
+    str12='  6.Enjoyï¼                                    ';
     str= strcat(str4,13,str5,13,str6,13,str7,13,str8,13,str9,13,str10,13,str11,13,str12)
     hs = msgbox({str4;str5;str6;str7;str8;str9;str10;str11;str12});
     
     ht = findobj(hs, 'Type', 'text');
-    set(ht, 'FontSize', 13, 'Unit', 'normal');% §ïÅÜ¹ï¸Ü®Ø¤j¤p
-    set(hs, 'Resize', 'on'); % ¤â°Ê§ïÅÜ¡A©ÎªÌ¥Î
+    set(ht, 'FontSize', 13, 'Unit', 'normal');% æ”¹è®Šå°è©±æ¡†å¤§å°
+    set(hs, 'Resize', 'on'); % æ‰‹å‹•æ”¹è®Šï¼Œæˆ–è€…ç”¨
     set(hs,'position', [600 300 330 250]);
     
 end
@@ -388,20 +388,20 @@ function rule1_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-    str4='           ¤ß¹q·PÀ³²q¼Æ¦r¹CÀ¸ ver1              ';
+    str4='           å¿ƒé›»æ„Ÿæ‡‰çŒœæ•¸å­—éŠæˆ² ver1              ';
     str5='                                               ';
-    str6='  ¹CÀ¸³W«h¡G                                   ';
-    str7='  1.¨C¦^¦Xª±®a¿é¤J¤@­Ó¥|¦ì¤£­«½Æ¼Æ¦r                  ';
-    str8='  2.Aªº¦¸¼Æ¥Nªíª±®a²q¹ï¤F´X­Ó¼Æ¦r¥B¦ì¸m¥¿½T     ';
-    str9='  3.Bªº¦¸¼Æ¥Nªíª±®a²q¹ï¤F´X­Ó¼Æ¦r¦ı¦ì¸m¤£¹ï     ';
-    str10='  4.§A´«¨ä¥L²Õ¥|¦ì¤£­«½Æ¼Æ¦r                     ';
-    str11='  5.Enjoy¡I                                    ';
+    str6='  éŠæˆ²è¦å‰‡ï¼š                                   ';
+    str7='  1.æ¯å›åˆç©å®¶è¼¸å…¥ä¸€å€‹å››ä½ä¸é‡è¤‡æ•¸å­—                  ';
+    str8='  2.Açš„æ¬¡æ•¸ä»£è¡¨ç©å®¶çŒœå°äº†å¹¾å€‹æ•¸å­—ä¸”ä½ç½®æ­£ç¢º     ';
+    str9='  3.Bçš„æ¬¡æ•¸ä»£è¡¨ç©å®¶çŒœå°äº†å¹¾å€‹æ•¸å­—ä½†ä½ç½®ä¸å°     ';
+    str10='  4.ä½ æ›å…¶ä»–çµ„å››ä½ä¸é‡è¤‡æ•¸å­—                     ';
+    str11='  5.Enjoyï¼                                    ';
     
     str = strcat(str4,13,str5,13,str6,13,str7,13,str8,13,str9,13,str10,13,str11,13)
     hs  = msgbox({str4;str5;str6;str7;str8;str9;str10;str11});
     ht = findobj(hs, 'Type', 'text');
-    set(ht, 'FontSize', 13, 'Unit', 'normal');% §ïÅÜ¹ï¸Ü®Ø¤j¤p
-    set(hs, 'Resize', 'on'); % ¤â°Ê§ïÅÜ¡A©ÎªÌ¥Î
+    set(ht, 'FontSize', 13, 'Unit', 'normal');% æ”¹è®Šå°è©±æ¡†å¤§å°
+    set(hs, 'Resize', 'on'); % æ‰‹å‹•æ”¹è®Šï¼Œæˆ–è€…ç”¨
     set(hs,'position', [600 300 330 230]);
     
     
