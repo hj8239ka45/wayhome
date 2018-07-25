@@ -1,11 +1,11 @@
 function [x y] =test1(answerBase,remaind,refer,a,b)
-    temp=1;  %temp¥u¬O¤@­Ó®³¨Ó­p¼ÆÅÜ¼Æ 
+    temp=1;  %tempåªæ˜¯ä¸€å€‹æ‹¿ä¾†è¨ˆæ•¸è®Šæ•¸ 
     remain=0;
      for i=1:remaind
-         %¶ñ¸Ëa­È©Mb­È¡A¦ı­n°Ï§O©ó¤§«eªº¤HÃş¿é¤Jªºa­Èb­È 
+         %å¡«è£aå€¼å’Œbå€¼ï¼Œä½†è¦å€åˆ¥æ–¼ä¹‹å‰çš„äººé¡è¼¸å…¥çš„aå€¼bå€¼ 
          aa = 0;
          bb = 0;
-         %¥H¤U¨â­Ófor¥Î¨Ó¤ñ¹ï²Äi­Óµª®×©M¶Ã¼Æ¨úªºµª®×ªº¬O´Xa´Xb 
+         %ä»¥ä¸‹å…©å€‹forç”¨ä¾†æ¯”å°ç¬¬iå€‹ç­”æ¡ˆå’Œäº‚æ•¸å–çš„ç­”æ¡ˆçš„æ˜¯å¹¾aå¹¾b 
          for j=1:4  
              for k=1:4
                  if answerBase(i,j)==refer(k)
@@ -17,7 +17,7 @@ function [x y] =test1(answerBase,remaind,refer,a,b)
                  end
              end
          end
-         %¤ñ¹ï end
+         %æ¯”å° end
          if ((aa==a)&&(bb==b))
 			for k=1:4
                 answerbase(temp,k)=answerBase(i,k);
@@ -27,7 +27,7 @@ function [x y] =test1(answerBase,remaind,refer,a,b)
          end
      end
      if remain ==0
-         msgbox('Cheater¡I= =+');
+         msgbox('Cheaterï¼= =+');
          pause(3);
          close all;
      end
