@@ -16,5 +16,18 @@ SPI 通信使用 4 個引腳，分別為：
 * SPI_MISO: 做為master時資料輸入；做為slave時資料輸出  
 * SPI_CLK: SPI的時脈信號由master主控產生；資料 (輸出及輸入) 和時脈同步  
 * SPI_SS: 此引腳唯有做為slave mode時有做用；做為master mode，此引腳當做GPIO使用 (0: master致能slave；1: master禁能slave)  
+![image](https://user-images.githubusercontent.com/39979565/229978441-03d21f47-088e-487c-8559-dd17a472616c.png)  
 
+[實體介面]  
+-------  
+由於RC522使用在 3.3 V，因此在使用時會搭配擴充板及變壓模組進行實驗，此圖為擴充模組  
+![image](https://user-images.githubusercontent.com/39979565/229980051-1aeb0591-9d90-4f92-9267-14ef7e36802c.png)
+另一端接上 MCU  
+![image](https://user-images.githubusercontent.com/39979565/229980078-ae28659a-eecf-43b1-94d2-eef6209a050b.png)
+而 MCU 以 micro USB 接線至電腦端進行資料傳輸  
+![image](https://user-images.githubusercontent.com/39979565/229980107-8b6cd0b2-2ad7-4191-a6a1-cbe53aaa938c.png)
+此圖為點名系統介面  
+![image](https://user-images.githubusercontent.com/39979565/229980149-2796a5d5-2e65-479e-a63a-75ee9ebea936.png)
+透過點名系統將可以產生人員對應卡號的名單以及進出時間
+![image](https://user-images.githubusercontent.com/39979565/229980193-e876b3f0-aacf-4c49-bfcf-10ae49e76760.png)
 
