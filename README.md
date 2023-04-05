@@ -21,13 +21,13 @@ SPI 通信使用 4 個引腳，分別為：
 [實體介面]  
 -------  
 由於RC522使用在 3.3 V，因此在使用時會搭配擴充板及變壓模組進行實驗，此圖為擴充模組  
-![image](https://user-images.githubusercontent.com/39979565/229980051-1aeb0591-9d90-4f92-9267-14ef7e36802c.png)
+![image](https://user-images.githubusercontent.com/39979565/229980051-1aeb0591-9d90-4f92-9267-14ef7e36802c.png)  
 另一端接上 MCU  
-![image](https://user-images.githubusercontent.com/39979565/229980078-ae28659a-eecf-43b1-94d2-eef6209a050b.png)
+![image](https://user-images.githubusercontent.com/39979565/229980078-ae28659a-eecf-43b1-94d2-eef6209a050b.png)  
 而 MCU 以 micro USB 接線至電腦端進行資料傳輸  
-![image](https://user-images.githubusercontent.com/39979565/229980107-8b6cd0b2-2ad7-4191-a6a1-cbe53aaa938c.png)
+![image](https://user-images.githubusercontent.com/39979565/229980107-8b6cd0b2-2ad7-4191-a6a1-cbe53aaa938c.png)  
 此圖為點名系統介面  
-![image](https://user-images.githubusercontent.com/39979565/229980149-2796a5d5-2e65-479e-a63a-75ee9ebea936.png)
+![image](https://user-images.githubusercontent.com/39979565/229980149-2796a5d5-2e65-479e-a63a-75ee9ebea936.png)  
 透過點名系統將可以產生人員對應卡號的名單以及進出時間
-![image](https://user-images.githubusercontent.com/39979565/229980193-e876b3f0-aacf-4c49-bfcf-10ae49e76760.png)
+![image](https://user-images.githubusercontent.com/39979565/229980193-e876b3f0-aacf-4c49-bfcf-10ae49e76760.png)  
 
