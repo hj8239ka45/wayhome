@@ -12,9 +12,9 @@ SAK代表select acknowledge，直譯為「選擇應答」，是由卡片發給�
 ------- 
 運用Studio4(IDE)建構程式碼操作ATmegaM128與RFID面板進行操作，運用SPI技術，操作腳位調高調低電壓來接收數據。
 SPI 通信使用 4 個引腳，分別為： 
-SPI_MOSI: 做為master時資料輸出；做為slave時資料輸入  
-SPI_MISO: 做為master時資料輸入；做為slave時資料輸出  
-SPI_CLK: SPI的時脈信號由master主控產生；資料 (輸出及輸入) 和時脈同步  
-SPI_SS: 此引腳唯有做為slave mode時有做用；做為master mode，此引腳當做GPIO使用 (0: master致能slave；1: master禁能slave)  
+#SPI_MOSI: 做為master時資料輸出；做為slave時資料輸入  
+#SPI_MISO: 做為master時資料輸入；做為slave時資料輸出  
+#SPI_CLK: SPI的時脈信號由master主控產生；資料 (輸出及輸入) 和時脈同步  
+#SPI_SS: 此引腳唯有做為slave mode時有做用；做為master mode，此引腳當做GPIO使用 (0: master致能slave；1: master禁能slave)  
 
 
