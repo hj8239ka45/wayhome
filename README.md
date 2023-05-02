@@ -31,3 +31,5 @@ SPI 通信使用 4 個引腳，分別為：
 透過點名系統將可以產生人員對應卡號的名單以及進出時間
 ![image](https://user-images.githubusercontent.com/39979565/229980193-e876b3f0-aacf-4c49-bfcf-10ae49e76760.png)  
 
+介面學習資料:
+https://github.com/hj8239ka45/MicroController/blob/main/README.md
